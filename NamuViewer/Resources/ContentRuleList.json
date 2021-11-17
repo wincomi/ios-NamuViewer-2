@@ -1,0 +1,26 @@
+[
+	{
+		"trigger": {
+			"url-filter": ".*.doubleclick.net.*"
+		},
+		"action": {
+			"type": "block"
+		}
+	},
+	{
+		"trigger": {
+			"url-filter": ".*googleads.*"
+		},
+		"action": {
+			"type": "block"
+		}
+	},
+	{
+		"trigger": {
+			"url-filter": ".*google.com/afs/ads.*"
+		},
+		"action": {
+			"type": "block"
+		}
+	}
+]
