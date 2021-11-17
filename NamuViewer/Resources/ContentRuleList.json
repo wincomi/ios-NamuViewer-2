@@ -22,5 +22,13 @@
 		"action": {
 			"type": "block"
 		}
+	},
+	{
+		"trigger": {
+			"url-filter": ".*arca.live/static/ad.*"
+		},
+		"action": {
+			"type": "block"
+		}
 	}
 ]
