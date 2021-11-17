@@ -523,9 +523,7 @@ extension RootViewController: WKNavigationDelegate {
 		}
 
 		// 나무위키 게시판
-		if url.absoluteString.contains("board.namu.wiki") ||
-			// arca.live 광고 제외 메인 페이지만
-			(url.host?.contains("arca.live") ?? false) && !url.absoluteString.contains("arca.live/static/ad") {
+		if url.absoluteString.contains("board.namu.wiki") || url.absoluteString == "https://arca.live/" {
 			coordinator?.presentSafariViewController(url: url)
 			decisionHandler(.cancel)
 			return
