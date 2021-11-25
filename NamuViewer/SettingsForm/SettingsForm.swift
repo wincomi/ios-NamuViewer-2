@@ -15,7 +15,7 @@ struct SettingsForm: View {
 
 	var body: some View {
 		Form {
-			Section(header: Text("광고"), footer: Text("나무위키 사이트 내 광고를 차단합니다. 활성화 후에도 광고가 나타날 경우 피드백을 보내주세요.")) {
+			Section(header: Text("광고 차단"), footer: Text("나무위키 사이트 내 광고를 차단합니다. 활성화 후에도 광고가 나타날 경우 피드백을 보내주세요.")) {
 				Toggle(isOn: $appSettings.adBlock) {
 					SettingsFormLabel("나무위키 광고 차단", systemImage: "hand.raised.slash")
 				}
@@ -49,15 +49,15 @@ struct SettingsForm: View {
 
 			Section(header: Text("나무위키"), footer: Text("나무위키는 백과사전이 아니며 검증되지 않았거나, 편향적이거나, 잘못된 서술이 있을 수 있습니다.\n나무위키는 위키위키입니다. 여러분이 직접 문서를 고칠 수 있으며, 다른 사람의 의견을 원할 경우 직접 토론을 발제할 수 있습니다.")) {
 				Button {
-					onSelectURL(URL(string: "mailto:support@namu.wiki")!)
-				} label: {
-					SettingsFormLabel("나무위키 관리자에게 문의", systemImage: "envelope")
-				}
-				Button {
 					dismissAction()
 					onSelectURL(URL(string: "https://board.namu.wiki")!)
 				} label: {
 					SettingsFormLabel("나무위키 게시판", systemImage: "list.dash")
+				}
+				Button {
+					onSelectURL(URL(string: "mailto:support@namu.wiki")!)
+				} label: {
+					SettingsFormLabel("나무위키 관리자에게 문의", systemImage: "envelope")
 				}
 				Button {
 					dismissAction()
@@ -67,7 +67,6 @@ struct SettingsForm: View {
 				}
 			}
 
-			// TODO: -
 			Section(header: Text("나무위키 뷰어"), footer: Text("이 앱은 나무위키의 공식 앱이 아니므로 나무위키 사이트의 문의사항은 나무위키로 문의하시기 바랍니다.\n나무위키 내의 컨텐츠는 앱 개발자가 보증하지 않습니다.")) {
 				Button {
 					let url = URL(string: "https://itunes.apple.com/app/id\(AppSettings.appStoreId)?action=write-review")!
@@ -99,6 +98,7 @@ struct SettingsForm: View {
 				}
 			}
 		}
+		.modifier(CompatibleInsetGroupedListStyle())
 		.navigationBarTitle("설정", displayMode: .large)
 		.navigationBarItems(trailing: dismissButton)
 	}
@@ -128,4 +128,3 @@ struct SettingsForm: View {
 		}
 	}
 }
-
