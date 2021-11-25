@@ -15,6 +15,7 @@ final class RootViewController: UIViewController {
 	weak var coordinator: RootCoordinator?
 
 	var initialURL: URL = Constants.NamuWiki.mainURL
+	var searchNamuWikiAfterLoading: (Bool, String?) = (false, nil)
 	var showDismissButton: Bool = false
 	var bookmarksRepository: BookmarksRepository?
 	var historiesRepository: HistoriesRepository?
@@ -546,6 +547,11 @@ extension RootViewController: WKNavigationDelegate {
 		update()
 		isLoading = false
 		print("didFinish isLoading = false")
+		
+		if searchNamuWikiAfterLoading.0 {
+			coordinator?.searchNamuWiki(searchText: searchNamuWikiAfterLoading.1)
+			searchNamuWikiAfterLoading = (false, nil)
+		}
 	}
 
 	func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {

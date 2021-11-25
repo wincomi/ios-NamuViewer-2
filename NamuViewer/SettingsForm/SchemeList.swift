@@ -20,7 +20,7 @@ struct SchemeList: View {
 
 			Section(header: Text("검색"), footer: Text("[XXX]에는 검색을 원하는 항목을 입력하세요.")) {
 				Text("namuviewer://?search=[XXX]")
-					.modifier(CopyContextMenuModifier(text: "namuviewer://?search="))
+					.modifier(CopyContextMenuModifier(text: "namuviewer://?search=[XXX]"))
 			}
 
 			Section(header: Text("즐겨찾기 열기")) {

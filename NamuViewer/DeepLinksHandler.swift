@@ -5,26 +5,6 @@
 
 import Foundation
 
-//Section(header: Text("앱 실행")) {
-//	Text("namuviewer://")
-//		.modifier(CopyContextMenuModifier(text: "namuviewer://"))
-//}
-//
-//Section(header: Text("URL 열기")) {
-//	Text("namuviewer://?url=https://namu.wiki/...")
-//		.modifier(CopyContextMenuModifier(text: "namuviewer://?url="))
-//}
-//
-//Section(header: Text("검색"), footer: Text("[XXX]에는 검색을 원하는 항목을 입력하세요.")) {
-//	Text("namuviewer://?search=[XXX]")
-//		.modifier(CopyContextMenuModifier(text: "namuviewer://?search="))
-//}
-//
-//Section(header: Text("즐겨찾기 열기")) {
-//	Text("namuviewer://bookmark")
-//		.modifier(CopyContextMenuModifier(text: "namuviewer://bookmark"))
-//}
-
 enum DeepLink: Equatable {
 	case openURL(String)
 	case search(String)
@@ -68,9 +48,7 @@ struct RealDeepLinksHandler: DeepLinksHandler {
 				coordinator.open(url: url)
 			}
 		case .search(let searchText):
-			// TODO: -
-			print("search")
-			coordinator.searchNamuWiki()
+			coordinator.searchNamuWiki(searchText: searchText)
 		case .openBookmarks:
 			coordinator.presentBookmarkHistoryTabView()
 		}

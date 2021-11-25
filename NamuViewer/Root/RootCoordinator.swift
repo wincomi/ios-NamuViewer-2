@@ -108,7 +108,7 @@ extension RootCoordinator {
 		viewController.webView.load(request)
 	}
 
-	func searchNamuWiki() {
+	func searchNamuWiki(searchText: String? = nil) {
 		let indicatorView = SPIndicatorView(title: "검색", message: "검색창으로 이동합니다.", preset: .custom(UIImage(systemName: "magnifyingglass")!))
 		indicatorView.present(duration: 0.3, haptic: .none)
 
@@ -121,6 +121,18 @@ extension RootCoordinator {
 				if let error = error {
 					SPIndicator.present(title: "오류가 발생하였습니다.", message: error.localizedDescription, preset: .error, haptic: .error)
 					return
+				}
+			}
+
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+				if let searchText = searchText {
+					let scriptSource = "\(Constants.NamuWiki.Selector.searchInput).value = '\(searchText)'"
+					self.viewController.webView.evaluateJavaScript(scriptSource) { (result, error) in
+						if let error = error {
+							SPIndicator.present(title: "오류가 발생하였습니다.", message: error.localizedDescription, preset: .error, haptic: .error)
+							return
+						}
+					}
 				}
 			}
 		}

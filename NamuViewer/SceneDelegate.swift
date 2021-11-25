@@ -18,7 +18,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 		self.window?.tintColor = AppSettings.shared.globalTintColor
 
-
 		let vc = RootViewController()
 		vc.edgesForExtendedLayout = [.left, .right]
 
@@ -50,10 +49,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		window?.overrideUserInterfaceStyle = AppSettings.shared.ignoreDarkmode ? .light : .unspecified
 
 		if let shortcutItem = connectionOptions.shortcutItem {
-			systemEventsHandler?.windowScenePerformActionFor(shortcutItem)
+			// systemEventsHandler?.windowScenePerformActionFor(shortcutItem)
+			switch shortcutItem.type {
+			case "com.wincomi.ios.namuViewer.search":
+				vc.searchNamuWikiAfterLoading = (true, nil)
+			case "com.wincomi.ios.namuViewer.bookmark":
+				coordinator?.presentBookmarkHistoryTabView()
+			case "com.wincomi.ios.namuViewer.random":
+				vc.initialURL = Constants.NamuWiki.randomURL
+			default:
+				break
+			}
 		}
 
-		systemEventsHandler?.sceneOpenURLContexts(connectionOptions.urlContexts)
+		// systemEventsHandler?.sceneOpenURLContexts(connectionOptions.urlContexts)
+		if let url = connectionOptions.urlContexts.first?.url,
+		   let deepLink = DeepLink(url: url) {
+			switch deepLink {
+			case .openURL(let urlString):
+				if let initialURL = URL(string: urlString) {
+					vc.initialURL = initialURL
+				}
+			case .search(let searchText):
+				vc.searchNamuWikiAfterLoading = (true, searchText)
+			case .openBookmarks:
+				coordinator?.presentBookmarkHistoryTabView()
+			}
+		}
+
 	}
 
 	func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
