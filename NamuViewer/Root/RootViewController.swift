@@ -94,7 +94,9 @@ final class RootViewController: UIViewController {
 
 		toolbarItemsProvider.moreActionHandler = { [weak self] in
 			guard let `self` = self else { return }
-			self.present(contextMenuItems: self.moreContextMenuItems, animated: true) { _ in }
+			self.present(contextMenuItems: self.moreContextMenuItems, animated: true) { vc in
+				vc.barButtonItem = self.toolbarItems?.last
+			}
 		}
 
 		if #available(iOS 14.0, *) {
