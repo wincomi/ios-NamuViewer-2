@@ -109,10 +109,12 @@ final class RootViewController: UIViewController {
 
 	lazy var moreContextMenuItems: [ContextMenuItem] = {
 		let share = ContextMenuItem(title: "공유", image: UIImage(systemName: "square.and.arrow.up")) { [weak self] in
-			guard let self = self, let url = self.webView.url else { return }
+			guard let `self` = self, let url = self.webView.url else { return }
 
 			let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
 			vc.popoverPresentationController?.sourceView = self.view
+			vc.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+			vc.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
 			self.present(vc, animated: true, completion: nil)
 		}
 
