@@ -48,7 +48,10 @@ extension RootCoordinator {
 	func presentTableOfContentsForm(html: String) {
 		viewController.webView.evaluateJavaScript("window.location.hash") { result, _ in
 			let view = TableOfContentsForm(html: html, documentTitle: self.viewController.documentTitle, currentHash: result as? String) { item in
-				self.viewController.webView.evaluateJavaScript("window.location.hash='\(item.id)'", completionHandler: nil)
+				self.viewController.dismiss(animated: true, completion: nil)
+				if let item = item {
+					self.viewController.webView.evaluateJavaScript("window.location.hash='\(item.id)'", completionHandler: nil)
+				}
 			}
 			let vc = UIHostingController(rootView: view)
 			vc.modalPresentationStyle = .formSheet

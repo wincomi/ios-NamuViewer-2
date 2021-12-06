@@ -7,12 +7,11 @@ import SwiftUI
 import Kanna
 
 struct TableOfContentsForm: View {
-	@Environment(\.presentationMode) var presentationMode
 	let html: String
 	let documentTitle: String?
 	let currentHash: String?
 	@State var items: [TocItem] = []
-	var onSelectItem: (TocItem) -> Void
+	var onSelectItem: (TocItem?) -> Void
 
 	var body: some View {
 		NavigationView {
@@ -20,7 +19,6 @@ struct TableOfContentsForm: View {
 				ForEach(items) { item in
 					Button {
 						onSelectItem(item)
-						presentationMode.wrappedValue.dismiss()
 					} label: {
 						Text(item.title)
 							.foregroundColor(item.id == currentHash ? Color.white : Color(UIColor.label))
@@ -46,7 +44,7 @@ struct TableOfContentsForm: View {
 
 	var dismissButton: some View {
 		Button {
-			presentationMode.wrappedValue.dismiss()
+			onSelectItem(nil)
 		} label: {
 			Image(systemName: "xmark")
 		}
