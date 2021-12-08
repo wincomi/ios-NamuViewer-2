@@ -108,7 +108,11 @@ final class RootViewController: UIViewController {
 	}()
 
 	lazy var moreContextMenuItems: [ContextMenuItem] = {
-		let share = ContextMenuItem(title: "공유", image: UIImage(systemName: "square.and.arrow.up")) { [weak self] in
+		let random = ContextMenuItem(title: "랜덤 문서", image: UIImage(systemName: "shuffle")) { [weak self] in
+			self?.coordinator?.goNamuWikiRandomDocument()
+		}
+
+		let share = ContextMenuItem(title: "공유...", image: UIImage(systemName: "square.and.arrow.up")) { [weak self] in
 			guard let `self` = self, let url = self.webView.url else { return }
 
 			let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
@@ -118,18 +122,14 @@ final class RootViewController: UIViewController {
 			self.present(vc, animated: true, completion: nil)
 		}
 
+		let findInPage = ContextMenuItem(title: "페이지에서 찾기...", image: UIImage(systemName: "doc.text.magnifyingglass")) { [weak self] in
+			self?.findInPage()
+		}
+
 		let openInSafari = ContextMenuItem(title: "Safari에서 열기", image: UIImage(systemName: "safari")) { [weak self] in
 			if let url = self?.webView.url {
 				UIApplication.shared.open(url, options: [:], completionHandler: nil)
 			}
-		}
-
-		let random = ContextMenuItem(title: "랜덤 문서", image: UIImage(systemName: "shuffle")) { [weak self] in
-			self?.coordinator?.goNamuWikiRandomDocument()
-		}
-
-		let findInPage = ContextMenuItem(title: "페이지에서 찾기", image: UIImage(systemName: "doc.text.magnifyingglass")) { [weak self] in
-			self?.findInPage()
 		}
 
 		var hideNavigationBar = ContextMenuItem(title: "상단바 숨기기", image: UIImage(systemName: "arrow.up.left.and.arrow.down.right")) { [weak self] in
@@ -137,11 +137,15 @@ final class RootViewController: UIViewController {
 			self.navigationController?.setNavigationBarHidden(!(self.navigationController?.isNavigationBarHidden ?? true), animated: true)
 		}
 
-		let settings = ContextMenuItem(title: "앱 설정", image: UIImage(systemName: "gear")) { [weak self] in
+		let namuWikiSettings = ContextMenuItem(title: "나무위키 설정...", image: UIImage(systemName: "textformat.alt")) { [weak self] in
+			self?.webView.evaluateJavaScript("\(Constants.NamuWiki.Selector.theseedSetting).click()", completionHandler: nil)
+		}
+
+		let settings = ContextMenuItem(title: "앱 설정...", image: UIImage(systemName: "gear")) { [weak self] in
 			self?.coordinator?.presentSettingsForm()
 		}
 
-		return [share, openInSafari, random, findInPage, hideNavigationBar, settings]
+		return [random, share, findInPage, openInSafari, hideNavigationBar, namuWikiSettings, settings]
 	}()
 
 	private var cancellables = Set<AnyCancellable>()
