@@ -545,8 +545,10 @@ extension RootViewController: WKNavigationDelegate {
 			return
 		}
 
-		// 나무위키 게시판
-		if url.absoluteString.contains("board.namu.wiki") || url.absoluteString == "https://arca.live/" {
+		// 예외 처리
+		if url.absoluteString.contains("board.namu.wiki") ||
+			url.absoluteString == "https://arca.live/" ||
+			url.absoluteString.contains("googleadservices.com/pagead/aclk") {
 			coordinator?.presentSafariViewController(url: url)
 			decisionHandler(.cancel)
 			return
