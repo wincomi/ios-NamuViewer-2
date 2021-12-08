@@ -112,6 +112,11 @@ extension RootCoordinator {
 	}
 
 	func searchNamuWiki(searchText: String? = nil) {
+		if let searchText = searchText {
+			goNamuWikiSearch(searchText: searchText)
+			return
+		}
+
 		let indicatorView = SPIndicatorView(title: "검색", message: "검색창으로 이동합니다.", preset: .custom(UIImage(systemName: "magnifyingglass")!))
 		indicatorView.present(duration: 0.3, haptic: .none)
 
@@ -127,17 +132,23 @@ extension RootCoordinator {
 				}
 			}
 
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-				if let searchText = searchText {
-					let scriptSource = "\(Constants.NamuWiki.Selector.searchInput).value = '\(searchText)'"
-					self.viewController.webView.evaluateJavaScript(scriptSource) { (result, error) in
-						if let error = error {
-							SPIndicator.present(title: "오류가 발생하였습니다.", message: error.localizedDescription, preset: .error, haptic: .error)
-							return
-						}
-					}
-				}
-			}
+//			guard let searchText = searchText else { return }
+//
+//			DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//				let scriptSource = "\(Constants.NamuWiki.Selector.searchInput).value = '\(searchText)'"
+//
+//				self.viewController.webView.evaluateJavaScript(scriptSource) { (result, error) in
+//					if let error = error {
+//						SPIndicator.present(title: "오류가 발생하였습니다.", message: error.localizedDescription, preset: .error, haptic: .error)
+//						return
+//					}
+//				}
+//			}
 		}
+	}
+
+	func goNamuWikiSearch(searchText: String) {
+		let request = URLRequest(url: Constants.NamuWiki.searchURL(searchText: searchText))
+		viewController.webView.load(request)
 	}
 }

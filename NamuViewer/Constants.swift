@@ -22,6 +22,10 @@ enum Constants {
 			URL(string: "https://namu.wiki/go/\(name.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "")")!
 		}
 
+		static func searchURL(searchText: String) -> URL {
+			URL(string: "https://namu.wiki/Search?q=\(searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "")")!
+		}
+
 		static let homeDocumentTitle = "나무위키:대문"
 
 		enum Selector {
