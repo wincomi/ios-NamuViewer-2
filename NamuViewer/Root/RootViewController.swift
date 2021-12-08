@@ -486,6 +486,14 @@ extension RootViewController: WKUIDelegate {
 			}
 		}
 
+		let share = UIAction(title: "공유...", image: UIImage(systemName: "square.and.arrow.up")) { _ in
+			let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+			vc.popoverPresentationController?.sourceView = self.view
+			vc.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+			vc.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+			self.present(vc, animated: true, completion: nil)
+		}
+
 		if url.isNamuWiki {
 			let configuration = UIContextMenuConfiguration(identifier: nil) {
 				return self.makeWebViewController(url: url)
@@ -498,7 +506,7 @@ extension RootViewController: WKUIDelegate {
 					UIApplication.shared.open(url, options: [:], completionHandler: nil)
 				}
 
-				return UIMenu(children: [openInNewWindow, openInBrowser, copy])
+				return UIMenu(children: [openInNewWindow, openInBrowser, copy, share])
 			}
 
 			completionHandler(configuration)
@@ -508,7 +516,7 @@ extension RootViewController: WKUIDelegate {
 		let configuration = UIContextMenuConfiguration(identifier: nil) {
 			return self.makeWebViewController(url: url)
 		} actionProvider: { _ in
-			return UIMenu(children: [copy])
+			return UIMenu(children: [copy, share])
 		}
 
 		completionHandler(configuration)
