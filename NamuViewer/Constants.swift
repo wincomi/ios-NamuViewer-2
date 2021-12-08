@@ -69,6 +69,7 @@ Array.from(document.getElementsByClassName('wiki-youtube')).forEach( (element) =
  element.outerHTML = '<a class="_namuViewer-youtube-link wiki-link-external" target="_blank" rel="nofollow noopener" style="background: black;display: block;padding: 5px;font-size: 1.1em;color: #c4302b !important;font-weight: bold;text-decoration: none;border: 5px solid #c4302b;text-align: center;" href="youtube://' + youtubeId + '"><img src="https://img.youtube.com/vi/' + youtubeId + '/hqdefault.jpg" style="max-width:100%" />▶ Youtube 앱에서 보기</a>';
 });
 """
-	}
 
+		static let adBlock = "var style = document.createElement('style');style.innerHTML = '#search-ad { display: none; }';document.head.appendChild(style);"
+	}
 }

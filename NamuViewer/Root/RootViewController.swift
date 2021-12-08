@@ -34,7 +34,7 @@ final class RootViewController: UIViewController {
 		userContentController.add(self, name: "pushStateChanged")
 		userContentController.add(self, name: "locationHrefChan∂ged")
 
-		let userScript = WKUserScript(source: Constants.JavaScript.findInPage + Constants.JavaScript.pushStateChanged + Constants.JavaScript.locationHrefChanged + Constants.JavaScript.youtubeFix, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+		let userScript = WKUserScript(source: Constants.JavaScript.findInPage + Constants.JavaScript.pushStateChanged + Constants.JavaScript.locationHrefChanged + Constants.JavaScript.youtubeFix + Constants.JavaScript.adBlock, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
 		userContentController.addUserScript(userScript)
 
 		let preferences = WKPreferences()
@@ -200,6 +200,7 @@ final class RootViewController: UIViewController {
 		if adBlock {
 			enableAdBlock()
 		}
+
 		AppSettings.shared.objectWillChange
 			.receive(on: DispatchQueue.main)
 			.sink { [weak self] in
@@ -418,6 +419,7 @@ final class RootViewController: UIViewController {
 
 	private func enableAdBlock() {
 		guard let path = Bundle.main.path(forResource: "ContentRuleList", ofType: "json") else { return }
+
 		do {
 			let jsonString = try String(contentsOfFile: path, encoding: .utf8)
 			WKContentRuleListStore.default().compileContentRuleList(forIdentifier: "com.wincomi.ios.namuViewer.rule01", encodedContentRuleList: jsonString) { [weak self] contentRuleList, error in
