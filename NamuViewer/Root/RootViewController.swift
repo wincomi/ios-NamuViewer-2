@@ -480,20 +480,22 @@ extension RootViewController: WKUIDelegate {
 			return
 		}
 
+		let copy = UIAction(title: "URL 복사", image: UIImage(systemName: "doc.on.doc")) { _ in
+			if let urlString = elementInfo.linkURL?.absoluteString {
+				UIPasteboard.general.string = urlString
+			}
+		}
+
 		if url.isNamuWiki {
-			let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+			let configuration = UIContextMenuConfiguration(identifier: nil) {
+				return self.makeWebViewController(url: url)
+			} actionProvider: { _ in
 				let openInNewWindow = UIAction(title: "새 창에서 열기", image: UIImage(systemName: "macwindow")) { _ in
 					self.coordinator?.presentNewWindow(url: url)
 				}
 
 				let openInBrowser = UIAction(title: "Safari에서 열기", image: UIImage(systemName: "safari")) { _ in
 					UIApplication.shared.open(url, options: [:], completionHandler: nil)
-				}
-
-				let copy = UIAction(title: "URL 복사", image: UIImage(systemName: "doc.on.doc")) { _ in
-					if let urlString = elementInfo.linkURL?.absoluteString {
-						UIPasteboard.general.string = urlString
-					}
 				}
 
 				return UIMenu(children: [openInNewWindow, openInBrowser, copy])
@@ -503,17 +505,25 @@ extension RootViewController: WKUIDelegate {
 			return
 		}
 
-		let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-			let copy = UIAction(title: "URL 복사", image: UIImage(systemName: "doc.on.doc")) { _ in
-				if let urlString = elementInfo.linkURL?.absoluteString {
-					UIPasteboard.general.string = urlString
-				}
-			}
-
+		let configuration = UIContextMenuConfiguration(identifier: nil) {
+			return self.makeWebViewController(url: url)
+		} actionProvider: { _ in
 			return UIMenu(children: [copy])
 		}
 
 		completionHandler(configuration)
+	}
+
+	private func makeWebViewController(url: URL) -> UIViewController {
+		let vc = UIViewController()
+
+		let webView = WKWebView()
+		let request = URLRequest(url: url)
+		webView.load(request)
+
+		vc.view = webView
+
+		return vc
 	}
 }
 
