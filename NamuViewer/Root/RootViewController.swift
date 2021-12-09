@@ -551,16 +551,21 @@ extension RootViewController: WKNavigationDelegate {
 			return
 		}
 
-		// 예외 처리
-		if url.absoluteString.contains("board.namu.wiki") ||
-			url.absoluteString == "https://arca.live/" ||
-			url.absoluteString.contains("googleadservices.com/pagead/aclk") {
-			coordinator?.presentSafariViewController(url: url)
-			decisionHandler(.cancel)
-			return
-		}
+		print("decidePolicyFor url = \(url.absoluteString)")
 
-		decisionHandler(.allow)
+		if navigationAction.navigationType == .linkActivated {
+			// 유저가 링크를 클릭할 경우
+			if url.absoluteString.contains("board.namu.wiki") ||
+				url.absoluteString == "https://arca.live/" ||
+				url.absoluteString.contains("googleadservices.com/pagead/aclk") {
+				coordinator?.presentSafariViewController(url: url)
+				decisionHandler(.cancel)
+			} else {
+				decisionHandler(.allow)
+			}
+		} else {
+			decisionHandler(.allow)
+		}
 	}
 
 	func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
