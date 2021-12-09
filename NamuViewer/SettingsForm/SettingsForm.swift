@@ -47,6 +47,12 @@ struct SettingsForm: View {
 				}
 			}
 
+			Section(header: Text("실험실"), footer: Text("문서에 있는 모든 Youtube 영상을 Youtube 앱에서 볼 수 있도록 변경합니다. 이 방식으로 스크롤시 영상 재생을 막을 수 있습니다.")) {
+				Toggle(isOn: $appSettings.useOpenYoutubeApp) {
+					SettingsFormLabel("Yotubue 앱에서 보기", systemImage: "play.rectangle")
+				}
+			}
+
 			Section(header: Text("나무위키"), footer: Text("나무위키는 백과사전이 아니며 검증되지 않았거나, 편향적이거나, 잘못된 서술이 있을 수 있습니다.\n나무위키는 위키위키입니다. 여러분이 직접 문서를 고칠 수 있으며, 다른 사람의 의견을 원할 경우 직접 토론을 발제할 수 있습니다.")) {
 				Button {
 					dismissAction()

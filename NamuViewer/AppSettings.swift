@@ -44,4 +44,7 @@ final class AppSettings: ObservableObject {
 			sceneDelegate?.window?.tintColor = globalTintColor
 		}
 	}
+
+	@UserDefault("useOpenYoutubeApp")
+	var useOpenYoutubeApp: Bool = true { willSet { objectWillChange.send() } }
 }
