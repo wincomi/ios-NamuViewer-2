@@ -47,7 +47,7 @@ struct SettingsForm: View {
 				}
 			}
 
-			Section(header: Text("실험실"), footer: Text("문서에 있는 모든 Youtube 영상을 Youtube 앱에서 볼 수 있도록 변경합니다. 이 방식으로 스크롤시 영상 재생을 막을 수 있습니다.")) {
+			Section(header: Text("실험실"), footer: Text("문서에 있는 모든 Youtube 영상을 Youtube 앱에서 볼 수 있도록 변경합니다. 이 방식으로 스크롤시 영상 재생을 막을 수 있습니다.\n앱 재시작 후 적용됩니다.")) {
 				Toggle(isOn: $appSettings.useOpenYoutubeApp) {
 					SettingsFormLabel("Yotubue 앱에서 보기", systemImage: "play.rectangle")
 				}
