@@ -32,7 +32,8 @@ final class RootViewController: UIViewController {
 	lazy var webView: WKWebView = {
 		let userContentController = WKUserContentController()
 		userContentController.add(self, name: "pushStateChanged")
-		userContentController.add(self, name: "locationHrefChan∂ged")
+		userContentController.add(self, name: "locationHrefChanged")
+		userContentController.add(self, name: "openYoutube")
 
 		let userScript = WKUserScript(source: Constants.JavaScript.findInPage + Constants.JavaScript.pushStateChanged + Constants.JavaScript.locationHrefChanged + Constants.JavaScript.youtubeFix + Constants.JavaScript.adBlock, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
 		userContentController.addUserScript(userScript)
@@ -367,6 +368,8 @@ final class RootViewController: UIViewController {
 				self?.isTableOfContentsButtonEnabled = false
 			}
 		}
+
+		webView.evaluateJavaScript(Constants.JavaScript.youtubeFix, completionHandler: nil)
 	}
 
 //	@objc func tappedIndicatorView() {
@@ -613,6 +616,14 @@ extension RootViewController: WKScriptMessageHandler {
 				self.update()
 				self.isLoading = false
 				print("locationHrefChanged isLoading = false")
+			}
+		case "openYoutube":
+			guard let youtubeId = message.body as? String else { return }
+			if UIApplication.shared.canOpenURL(URL(string: "youtube://")!) {
+				let youtubeAppURL = URL(string: "youtube://\(youtubeId)")!
+				UIApplication.shared.open(youtubeAppURL, options: [:], completionHandler: nil)
+			} else {
+				coordinator?.presentSafariViewController(url: URL(string: "http://www.youtube.com/watch?v=\(youtubeId)")!)
 			}
 		default:
 			break
