@@ -66,7 +66,7 @@ window.onload = function() {
 		static let youtubeFix = """
 Array.from(document.getElementsByClassName('wiki-youtube')).forEach( (element) => {
 	var youtubeId = element.src.substring(element.src.lastIndexOf('/') + 1);
-	element.outerHTML = '<button type="button" class="_namuViewer-youtube-link" style="background: black;display: block;padding: 5px 5px 10px 5px;font-size: 1.1em;color: red;font-weight: bold;text-decoration: none;text-align: center;border: 0;" onclick="webkit.messageHandlers.openYoutube.postMessage(\\'' + youtubeId + '\\');"><img src="https://img.youtube.com/vi/' + youtubeId + '/hqdefault.jpg" style="max-width:100%" />▶ Youtube 앱에서 보기</a>';
+	element.outerHTML = '<button type="button" class="_namuViewer-youtube-link" style="background: black;display: block;padding: 5px 5px 10px 5px;font-size: 1.1em;color: red;font-weight: bold;text-decoration: none;text-align: center;border: 0;width: 100%" onclick="webkit.messageHandlers.openYoutube.postMessage(\\'' + youtubeId + '\\');"><img src="https://img.youtube.com/vi/' + youtubeId + '/hqdefault.jpg" style="max-width:100%" /><br>▶ Youtube 앱에서 보기</a>';
 });
 """
 
