@@ -19,7 +19,7 @@ final class AppSettings: ObservableObject {
 	}
 
 	@UserDefault("adblock")
-	var adBlock: Bool = false { willSet { objectWillChange.send() } }
+	var adBlock: Bool = true { willSet { objectWillChange.send() } }
 
 	@UserDefault("ignoreDarkmode")
 	var ignoreDarkmode: Bool = false {

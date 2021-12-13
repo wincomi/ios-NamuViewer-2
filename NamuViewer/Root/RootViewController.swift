@@ -556,17 +556,20 @@ extension RootViewController: WKNavigationDelegate {
 			return
 		}
 
-		print("decidePolicyFor url = \(url.absoluteString)")
+		print("decidePolicyFor url = \(url.absoluteString), navigationType = \(navigationAction.navigationType.rawValue)")
 
 		if navigationAction.navigationType == .linkActivated {
 			// 유저가 링크를 클릭할 경우
-			if url.absoluteString.contains("board.namu.wiki") ||
-				url.absoluteString == "https://arca.live/" ||
-				url.absoluteString.contains("googleadservices.com/pagead/aclk") {
-				coordinator?.presentSafariViewController(url: url)
-				decisionHandler(.cancel)
+			if ["http", "https"].contains(url.scheme?.lowercased() ?? "") {
+				if url.host == "namu.wiki" {
+					decisionHandler(.allow)
+				} else {
+					coordinator?.presentSafariViewController(url: url)
+					decisionHandler(.cancel)
+				}
 			} else {
-				decisionHandler(.allow)
+				UIApplication.shared.open(url, options: [:], completionHandler: nil)
+				decisionHandler(.cancel)
 			}
 		} else {
 			decisionHandler(.allow)
