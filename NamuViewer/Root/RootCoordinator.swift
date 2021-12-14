@@ -34,8 +34,7 @@ extension RootCoordinator {
 
 	private func onSelect(_ url: URL) {
 		if url.isNamuWiki {
-			let request = URLRequest(url: url)
-			viewController.webView.load(request)
+			viewController.load(url: url)
 		} else {
 			if ["http", "https"].contains(url.scheme?.lowercased() ?? "") {
 				presentSafariViewController(url: url)
@@ -92,23 +91,20 @@ extension RootCoordinator {
 
 	func open(url: URL) {
 		if url.isNamuWiki {
-			let request = URLRequest(url: url)
-			viewController.webView.load(request)
+			viewController.load(url: url)
 		} else {
 			presentSafariViewController(url: url)
 		}
 	}
 
 	func goNamuWikiDocument(name: String) {
-		let request = URLRequest(url: Constants.NamuWiki.documentURL(name: name))
-		viewController.webView.load(request)
+		viewController.load(url: Constants.NamuWiki.documentURL(name: name))
 	}
 
 	func goNamuWikiRandomDocument() {
 		SPIndicator.present(title: "랜덤 문서", message: "랜덤한 문서로 이동합니다.", preset: .custom(UIImage(systemName: "shuffle")!), haptic: .none)
-		
-		let request = URLRequest(url: Constants.NamuWiki.randomURL)
-		viewController.webView.load(request)
+
+		viewController.load(url: Constants.NamuWiki.randomURL)
 	}
 
 	func searchNamuWiki(searchText: String? = nil) {
@@ -148,7 +144,6 @@ extension RootCoordinator {
 	}
 
 	func goNamuWikiSearch(searchText: String) {
-		let request = URLRequest(url: Constants.NamuWiki.searchURL(searchText: searchText))
-		viewController.webView.load(request)
+		viewController.load(url: Constants.NamuWiki.searchURL(searchText: searchText))
 	}
 }

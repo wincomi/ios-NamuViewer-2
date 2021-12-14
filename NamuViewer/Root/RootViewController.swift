@@ -222,6 +222,12 @@ final class RootViewController: UIViewController {
 			}.store(in: &cancellables)
 	}
 
+	func load(url: URL) {
+		print("load: \(url)")
+		let request = URLRequest(url: url)
+		webView.load(request)
+	}
+
 	private func setupUI() {
 		navigationController?.view.backgroundColor = .systemBackground
 		navigationController?.isToolbarHidden = false
@@ -305,8 +311,7 @@ final class RootViewController: UIViewController {
 			.assign(to: \.tableOfContents.isEnabled, on: toolbarItemsProvider)
 			.store(in: &cancellables)
 
-		let request = URLRequest(url: initialURL)
-		webView.load(request)
+		load(url: initialURL)
 
 //		updateNavigationBar()
 	}
