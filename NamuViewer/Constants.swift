@@ -71,5 +71,9 @@ Array.from(document.getElementsByClassName('wiki-youtube')).forEach( (element) =
 """
 
 		static let adBlock = "var style = document.createElement('style');style.innerHTML = '#search-ad { display: none; }';document.head.appendChild(style);"
+
+		static let disableMemberMenu = """
+document.querySelector('a[title="Member menu"]').remove();
+"""
 	}
 }

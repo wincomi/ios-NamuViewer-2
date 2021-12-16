@@ -35,7 +35,7 @@ final class RootViewController: UIViewController {
 		userContentController.add(self, name: "locationHrefChanged")
 		userContentController.add(self, name: "openYoutube")
 
-		let userScript = WKUserScript(source: Constants.JavaScript.findInPage + Constants.JavaScript.pushStateChanged + Constants.JavaScript.locationHrefChanged + (AppSettings.shared.useOpenYoutubeApp ? Constants.JavaScript.youtubeFix : "") + Constants.JavaScript.adBlock, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+		let userScript = WKUserScript(source: Constants.JavaScript.findInPage + Constants.JavaScript.pushStateChanged + Constants.JavaScript.locationHrefChanged + (AppSettings.shared.useOpenYoutubeApp ? Constants.JavaScript.youtubeFix : "") + Constants.JavaScript.adBlock + Constants.JavaScript.disableMemberMenu, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
 		userContentController.addUserScript(userScript)
 
 		let preferences = WKPreferences()
