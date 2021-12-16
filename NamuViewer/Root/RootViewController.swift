@@ -313,13 +313,6 @@ final class RootViewController: UIViewController {
 
 		load(url: initialURL)
 
-		// Fixed for App Store Connect Review at 2021-12-16
-		if let data = try? Data(contentsOf: initialURL) {
-			webView.load(data, mimeType: "text/html", characterEncodingName: "UTF-8", baseURL: initialURL)
-		} else {
-			webView.loadHTMLString("에러가 발생하였습니다.<br>\(initialURL.absoluteString)", baseURL: initialURL)
-		}
-
 //		updateNavigationBar()
 	}
 
@@ -570,7 +563,15 @@ extension RootViewController: WKNavigationDelegate {
 
 		print("decidePolicyFor url = \(url.absoluteString), navigationType = \(navigationAction.navigationType.rawValue)")
 
-		if navigationAction.navigationType == .linkActivated {
+		// Fixed for App Store Connect Review at 2021-12-16
+		if navigationAction.targetFrame?.isMainFrame == true && url.host != "namu.wiki" {
+			decisionHandler(.cancel)
+			if let data = try? Data(contentsOf: initialURL) {
+				webView.load(data, mimeType: "text/html", characterEncodingName: "UTF-8", baseURL: initialURL)
+			} else {
+				webView.loadHTMLString("에러가 발생하였습니다.<br>\(initialURL.absoluteString)", baseURL: initialURL)
+			}
+		} else if navigationAction.navigationType == .linkActivated {
 			// 유저가 링크를 클릭할 경우
 			if ["http", "https"].contains(url.scheme?.lowercased() ?? "") {
 				if url.host == "namu.wiki" {
