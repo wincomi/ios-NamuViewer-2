@@ -564,7 +564,7 @@ extension RootViewController: WKNavigationDelegate {
 		print("decidePolicyFor url = \(url.absoluteString), navigationType = \(navigationAction.navigationType.rawValue)")
 
 		// Fixed for App Store Connect Review at 2021-12-16
-		if navigationAction.targetFrame?.isMainFrame == true && url.host != "namu.wiki" {
+		if navigationAction.targetFrame?.isMainFrame == true && url.host != "namu.wiki" && navigationAction.navigationType != .linkActivated {
 			decisionHandler(.cancel)
 			if let data = try? Data(contentsOf: initialURL) {
 				webView.load(data, mimeType: "text/html", characterEncodingName: "UTF-8", baseURL: initialURL)
