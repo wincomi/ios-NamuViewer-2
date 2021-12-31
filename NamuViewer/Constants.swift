@@ -33,6 +33,8 @@ enum Constants {
 			static let documentTitle = "document.querySelectorAll('div.r + h1>a[href]')[0].innerText.trim()"
 			static let tableOfContents = "document.getElementById('toc').innerHTML"
 			static let theseedSetting = "document.getElementsByClassName('ion-ios-cog')[0]"
+			static let theseedSettingModal = "document.querySelector(\"div[data-modal='theseed-setting']\")"
+			static let theseedSettingModalDismissButton = "document.querySelector(\"div[data-modal='theseed-setting'] > div > .theseed-fix-dialog > .s > button\")"
 		}
 	}
 

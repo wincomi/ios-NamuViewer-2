@@ -116,6 +116,14 @@ extension RootCoordinator {
 		let indicatorView = SPIndicatorView(title: "검색", message: "검색창으로 이동합니다.", preset: .custom(UIImage(systemName: "magnifyingglass")!))
 		indicatorView.present(duration: 0.3, haptic: .none)
 
+		// 설정 모달 감추기
+		let scriptSource = "\(Constants.NamuWiki.Selector.theseedSettingModal) != null"
+		viewController.webView.evaluateJavaScript(scriptSource) { isModalActived, _ in
+			if isModalActived as? Bool ?? false {
+				self.viewController.webView.evaluateJavaScript("\(Constants.NamuWiki.Selector.theseedSettingModalDismissButton).click()", completionHandler: nil)
+			}
+		}
+
 		UIApplication.shared.sendAction(#selector(UIView.resignFirstResponder), to: nil, from: nil, for: nil)
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
