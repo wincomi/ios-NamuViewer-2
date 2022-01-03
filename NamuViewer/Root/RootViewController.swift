@@ -35,7 +35,7 @@ final class RootViewController: UIViewController {
 		userContentController.add(self, name: "locationHrefChanged")
 		userContentController.add(self, name: "openYoutube")
 
-		let userScript = WKUserScript(source: Constants.JavaScript.findInPage + Constants.JavaScript.pushStateChanged + Constants.JavaScript.locationHrefChanged + (AppSettings.shared.useOpenYoutubeApp ? Constants.JavaScript.youtubeFix : "") + Constants.JavaScript.adBlock + Constants.JavaScript.disableMemberMenu, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+		let userScript = WKUserScript(source: Constants.JavaScript.findInPage + Constants.JavaScript.pushStateChanged + Constants.JavaScript.locationHrefChanged + (AppSettings.shared.useOpenYoutubeApp ? Constants.JavaScript.youtubeFix : "") + Constants.JavaScript.adBlock, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
 		userContentController.addUserScript(userScript)
 
 		let preferences = WKPreferences()
@@ -564,10 +564,12 @@ extension RootViewController: WKNavigationDelegate {
 		print("decidePolicyFor url = \(url.absoluteString), navigationType = \(navigationAction.navigationType.rawValue)")
 
 		// Fixed for App Store Connect Review at 2021-12-16
+		// Frame load interrupted
 		if navigationAction.targetFrame?.isMainFrame == true && url.host != "namu.wiki" && navigationAction.navigationType != .linkActivated {
 			decisionHandler(.cancel)
 			if let data = try? Data(contentsOf: initialURL) {
 				webView.load(data, mimeType: "text/html", characterEncodingName: "UTF-8", baseURL: initialURL)
+				webView.evaluateJavaScript(Constants.JavaScript.disableMemberMenu, completionHandler: nil)
 			} else {
 				webView.loadHTMLString("에러가 발생하였습니다.<br>\(initialURL.absoluteString)", baseURL: initialURL)
 			}
