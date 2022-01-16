@@ -62,7 +62,10 @@ final class RootViewController: UIViewController {
 		let toolbarItemsProvider = RootViewToolbarItemsProvider()
 
 		toolbarItemsProvider.starActionHandler = { [weak self] in
-			guard let `self` = self, let documentTitle = self.documentTitle else { return }
+			guard let `self` = self, let documentTitle = self.documentTitle else {
+				SPIndicator.present(title: "문서 제목이 존재하지 않습니다.", message: "개발자에게 문의해주세요.", preset: .error, haptic: .error)
+				return
+			}
 
 			if self.isStarButtonHighlighted {
 				self.removeFromBookmark(documentTitle: documentTitle)
