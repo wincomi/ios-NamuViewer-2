@@ -35,7 +35,7 @@ struct TableOfContentsForm: View {
 	func parse() {
 		guard let doc = try? HTML(html: html, encoding: .utf8) else { return }
 		
-		items = doc.css(".toc-item").compactMap {
+		items = doc.css("span[class]").compactMap {
 			guard let href = $0.css("a[href]").first?["href"],
 				  let title = $0.content else { return nil }
 			return TocItem(id: href, indent: 0, title: title)
