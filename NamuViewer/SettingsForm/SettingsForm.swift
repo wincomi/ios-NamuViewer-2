@@ -15,43 +15,22 @@ struct SettingsForm: View {
 
 	var body: some View {
 		Form {
-			Section(header: Text("광고 차단"), footer: Text("나무위키 사이트 내 광고를 차단합니다. 활성화 후에도 광고가 나타날 경우 피드백을 보내주세요.")) {
-				Toggle(isOn: $appSettings.adBlock) {
-					SettingsFormLabel("나무위키 광고 차단", systemImage: "hand.raised.slash")
-				}
-			}
-			Section(header: Text("일반")) {
+            themeSection
+
+			Section(header: Text("일반"), footer: Text("iCloud 동기화 기능을 사용할 경우 로컬에 저장된 즐겨찾기 대신 iCloud에 저장된 즐겨찾기로 대체됩니다. 활성화하기 전에 즐겨찾기를 백업을 권장드립니다.")) {
 				Toggle(isOn: $appSettings.enabledHistory) {
 					SettingsFormLabel("방문 기록 남기기", systemImage: "clock")
 				}
+                Toggle(isOn: $appSettings.useIcloudBookmarks) {
+                    SettingsFormLabel("즐겨찾기 iCloud 동기화", systemImage: "icloud")
+                }
 			}
 
-			themeSection
-
-			Section(header: Text("고급"), footer: Text("iCloud 동기화 기능을 사용할 경우 저장된 로컬 즐겨찾기 대신 iCloud에 저장된 즐겨찾기로 대체됩니다. 활성화하기 전에 즐겨찾기를 백업하세요. ")) {
-				NavigationLink {
-					SchemeList()
-				} label: {
-					SettingsFormLabel("URL Scheme", systemImage: "link")
-				}
-				Button {
-					WKWebsiteDataStore.default()
-						.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: Date(timeIntervalSince1970: 0)) {
-							SPIndicator.present(title: "캐시를 비웠습니다.", preset: .done, haptic: .success)
-						}
-				} label: {
-					SettingsFormLabel("캐시 비우기", systemImage: "trash")
-				}
-				Toggle(isOn: $appSettings.useIcloudBookmarks) {
-					SettingsFormLabel("즐겨찾기 iCloud 동기화", systemImage: "icloud")
-				}
-			}
-
-//			Section(header: Text("실험실"), footer: Text("문서에 있는 모든 Youtube 영상을 Youtube 앱에서 볼 수 있도록 변경합니다. 이 방식으로 스크롤시 영상 재생을 막을 수 있습니다.\n앱 재시작 후 적용됩니다.")) {
-//				Toggle(isOn: $appSettings.useOpenYoutubeApp) {
-//					SettingsFormLabel("Yotubue 앱에서 보기", systemImage: "play.rectangle")
-//				}
-//			}
+            Section(header: Text("광고 차단"), footer: Text("나무위키 사이트 내 광고를 차단합니다. 활성화 후에도 광고가 나타날 경우 피드백을 보내주세요.")) {
+                Toggle(isOn: $appSettings.adBlock) {
+                    SettingsFormLabel("나무위키 광고 차단", systemImage: "hand.raised.slash")
+                }
+            }
 
 			Section(header: Text("나무위키"), footer: Text("나무위키는 백과사전이 아니며 검증되지 않았거나, 편향적이거나, 잘못된 서술이 있을 수 있습니다.\n나무위키는 위키위키입니다. 여러분이 직접 문서를 고칠 수 있으며, 다른 사람의 의견을 원할 경우 직접 토론을 발제할 수 있습니다.")) {
 				Button {
@@ -95,7 +74,7 @@ struct SettingsForm: View {
 				}
 			}
 
-			Section(header: Text("앱 아이콘 디자이너")) {
+            Section(header: Text("앱 아이콘 디자이너"), footer: Text("앱 아이콘 추가를 원하신다면 피드백을 보내주세요.")) {
 				Button {
 					let url = URL(string: "https://twitter.com/krevony")!
 					UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -103,6 +82,28 @@ struct SettingsForm: View {
 					SettingsFormLabel("Kyle(chanu)", systemImage: "paintbrush")
 				}
 			}
+
+            Section(header: Text("고급")) {
+                NavigationLink {
+                    SchemeList()
+                } label: {
+                    SettingsFormLabel("URL Scheme", systemImage: "link")
+                }
+                Button {
+                    WKWebsiteDataStore.default()
+                        .removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: Date(timeIntervalSince1970: 0)) {
+                            SPIndicator.present(title: "캐시를 비웠습니다.", preset: .done, haptic: .success)
+                        }
+                } label: {
+                    SettingsFormLabel("캐시 비우기", systemImage: "trash")
+                }
+            }
+
+            //            Section(header: Text("실험실"), footer: Text("문서에 있는 모든 Youtube 영상을 Youtube 앱에서 볼 수 있도록 변경합니다. 이 방식으로 스크롤시 영상 재생을 막을 수 있습니다.\n앱 재시작 후 적용됩니다.")) {
+            //                Toggle(isOn: $appSettings.useOpenYoutubeApp) {
+            //                    SettingsFormLabel("Yotubue 앱에서 보기", systemImage: "play.rectangle")
+            //                }
+            //            }
 		}
 		.modifier(CompatibleInsetGroupedListStyle())
 		.navigationBarTitle("설정", displayMode: .large)
@@ -122,7 +123,7 @@ struct SettingsForm: View {
 			}
 			.buttonStyle(PlainButtonStyle())
 			Toggle(isOn: $appSettings.ignoreDarkmode) {
-				SettingsFormLabel("다크모드 무시하기", systemImage: "moon")
+				SettingsFormLabel("시스템 다크모드 무시하기", systemImage: "moon")
 			}
 		}
 	}
