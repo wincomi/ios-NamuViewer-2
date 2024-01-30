@@ -67,6 +67,7 @@ window.onload = function() {
  observer.observe(bodyList, config);
 };
 """
+        @available(*, deprecated)
         static let youtubeFix = """
 Array.from(document.getElementsByClassName('wiki-youtube')).forEach( (element) => {
  var youtubeId = element.src.substring(element.src.lastIndexOf('/') + 1);

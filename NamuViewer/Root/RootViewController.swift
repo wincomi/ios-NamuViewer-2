@@ -35,7 +35,7 @@ final class RootViewController: UIViewController {
 		userContentController.add(self, name: "locationHrefChanged")
 		userContentController.add(self, name: "openYoutube")
 
-        let userScript = WKUserScript(source: Constants.JavaScript.findInPage + Constants.JavaScript.pushStateChanged + Constants.JavaScript.locationHrefChanged + (AppSettings.shared.useOpenYoutubeApp ? Constants.JavaScript.youtubeFix : "") + Constants.JavaScript.adBlock + Constants.JavaScript.removeForAppStoreReviews, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+        let userScript = WKUserScript(source: Constants.JavaScript.findInPage + Constants.JavaScript.pushStateChanged + Constants.JavaScript.locationHrefChanged + Constants.JavaScript.adBlock + Constants.JavaScript.removeForAppStoreReviews, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
 		userContentController.addUserScript(userScript)
 
 		let preferences = WKPreferences()
@@ -384,9 +384,9 @@ final class RootViewController: UIViewController {
 			}
 		}
 
-		if AppSettings.shared.useOpenYoutubeApp {
-			webView.evaluateJavaScript(Constants.JavaScript.youtubeFix, completionHandler: nil)
-		}
+//		if AppSettings.shared.useOpenYoutubeApp {
+//			webView.evaluateJavaScript(Constants.JavaScript.youtubeFix, completionHandler: nil)
+//		}
 	}
 
 //	@objc func tappedIndicatorView() {

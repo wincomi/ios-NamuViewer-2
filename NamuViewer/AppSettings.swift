@@ -46,5 +46,6 @@ final class AppSettings: ObservableObject {
 	}
 
 	@UserDefault("useOpenYoutubeApp")
+    @available(*, deprecated)
 	var useOpenYoutubeApp: Bool = true { willSet { objectWillChange.send() } }
 }
