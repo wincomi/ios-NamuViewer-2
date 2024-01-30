@@ -30,5 +30,13 @@
 		"action": {
 			"type": "block"
 		}
-	}
+	},
+    {
+        "trigger": {
+            "url-filter": ".*googlesyndication.*"
+        },
+        "action": {
+            "type": "block"
+        }
+    }
 ]
