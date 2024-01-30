@@ -87,7 +87,7 @@ document.querySelector('a[title="Member menu"]').remove();
         
         static let removeForAppStoreReviews = """
 var style = document.createElement('style');
-style.innerHTML = 'footer > ul:first-child, a[href*=\"/member/signup\"] { display: none; }';
+style.innerHTML = 'a[href*="play.google.com/store/apps/details?id=net.umanle.namuwiki"], a[href*="/member/signup"] { display: none !important; }';
 document.head.appendChild(style);
 """
     }
