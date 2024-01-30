@@ -114,8 +114,6 @@ struct HistoryList: View {
 	var trailingButtons: some View {
 		HStack(spacing: 24) {
 			if editMode == .active {
-				backupButton
-					.disabled(rowItems.isEmpty)
 				removeAllButton
 					.disabled(rowItems.isEmpty)
 					.actionSheet(isPresented: $isActionSheetPresented) {
@@ -129,6 +127,8 @@ struct HistoryList: View {
 						)
 					}
 			} else {
+                backupButton
+                    .disabled(rowItems.isEmpty)
 				dismissButton
 			}
 		}.animation(nil)

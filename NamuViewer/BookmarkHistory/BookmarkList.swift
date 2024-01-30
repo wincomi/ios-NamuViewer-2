@@ -128,8 +128,6 @@ struct BookmarkList: View {
 	var trailingButtons: some View {
 		HStack(spacing: 24) {
 			if editMode == .active {
-				backupButton
-					.disabled(rowItems.isEmpty)
 				removeAllButton
 					.disabled(rowItems.isEmpty)
 					.actionSheet(isPresented: $isActionSheetPresented) {
@@ -143,6 +141,8 @@ struct BookmarkList: View {
 						)
 					}
 			} else {
+                backupButton
+                    .disabled(rowItems.isEmpty)
 				dismissButton
 			}
 		}.animation(nil)
