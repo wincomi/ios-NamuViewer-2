@@ -76,7 +76,7 @@ Array.from(document.getElementsByClassName('wiki-youtube')).forEach( (element) =
         
         static let adBlock = """
 var style = document.createElement('style');
-style.innerHTML = '#search-ad, div[class="dSw+obcx"] { display: none; }';
+style.innerHTML = 'div[class*="Z0lZ8CgN"], div[class*="Z0lZ8CgN"] { display: none !important; }';
 document.head.appendChild(style);
 """
         
