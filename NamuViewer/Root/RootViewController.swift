@@ -55,6 +55,13 @@ final class RootViewController: UIViewController {
 		webView.scrollView.isScrollEnabled = true
 		webView.setKeyboardRequiresUserInteraction(false)
 
+        #if DEBUG
+        if #available(iOS 16.4, *) {
+            webView.isInspectable = true
+        }
+        #endif
+
+
 		return webView
 	}()
 
@@ -546,6 +553,13 @@ extension RootViewController: WKUIDelegate {
 
 		let webView = WKWebView()
 		let request = URLRequest(url: url)
+
+        #if DEBUG
+        if #available(iOS 16.4, *) {
+            webView.isInspectable = true
+        }
+        #endif
+
 		webView.load(request)
 
 		vc.view = webView
