@@ -29,12 +29,14 @@ enum Constants {
 		static let homeDocumentTitle = "나무위키:대문"
 
 		enum Selector {
-			static let searchInput = "document.querySelector('nav>form input[type=search]')"
-			static let documentTitle = "document.querySelectorAll('article > div + h1 > a[href]')[0].innerText.trim()"
-			static let tableOfContents = "document.querySelector(\"div[class='SViB74Q3']\").innerHTML"
+            static let searchInput = "document.querySelector('main form>input[type=search]')"
+            static let documentTitle = "document.querySelectorAll('article > div h1 > a[href]')[0].innerText.trim()"
+            static let tableOfContents = "document.querySelector(\"div[class='tL1Bw0Ez']\").innerHTML"
+
+            @available(*, deprecated)
 			static let theseedSetting = "document.getElementsByClassName('ion-ios-cog')[0]"
 			static let theseedSettingModal = "document.querySelector(\"div[data-modal='theseed-setting']\")"
-			static let theseedSettingModalDismissButton = "document.querySelector(\"div[data-modal='theseed-setting'] > div > .theseed-fix-dialog > .s > button\")"
+			static let theseedSettingModalDismissButton = "document.querySelector(\"div[class='qmvP+hIe'] > button\")"
 		}
 	}
 

@@ -141,15 +141,15 @@ final class RootViewController: UIViewController {
 			self.navigationController?.setNavigationBarHidden(!(self.navigationController?.isNavigationBarHidden ?? true), animated: true)
 		}
 
-		let namuWikiSettings = ContextMenuItem(title: "나무위키 설정...", image: UIImage(systemName: "textformat.alt")) { [weak self] in
-			self?.webView.evaluateJavaScript("\(Constants.NamuWiki.Selector.theseedSetting).click()", completionHandler: nil)
-		}
+//		let namuWikiSettings = ContextMenuItem(title: "나무위키 설정...", image: UIImage(systemName: "textformat.alt")) { [weak self] in
+//			self?.webView.evaluateJavaScript("\(Constants.NamuWiki.Selector.theseedSetting).click()", completionHandler: nil)
+//		}
 
 		let settings = ContextMenuItem(title: "앱 설정...", image: UIImage(systemName: "gear")) { [weak self] in
 			self?.coordinator?.presentSettingsForm()
 		}
 
-		return [random, share, findInPage, openInSafari, hideNavigationBar, namuWikiSettings, settings]
+		return [random, share, findInPage, openInSafari, hideNavigationBar, settings]
 	}()
 
 	private var cancellables = Set<AnyCancellable>()
