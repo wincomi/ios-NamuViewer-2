@@ -20,7 +20,7 @@ final class RootViewController: UIViewController {
 	var bookmarksRepository: BookmarksRepository?
 	var historiesRepository: HistoriesRepository?
 
-	@Published var adBlock: Bool = false
+	@Published var adBlock: Bool = true
 	@Published var isLoading: Bool = false
 	@Published var documentTitle: String?
 	@Published var isBackButtonEnabled: Bool = false
