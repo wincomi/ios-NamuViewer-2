@@ -31,7 +31,7 @@ enum Constants {
 		enum Selector {
             static let searchInput = "document.querySelector('main form>input[type=search]')"
             static let documentTitle = "document.querySelectorAll('article > div h1 > a[href]')[0].innerText.trim()"
-            static let tableOfContents = "document.querySelector(\"div[class='tL1Bw0Ez']\").innerHTML"
+            static let tableOfContents = "document.querySelector(\"div[class='VMXJxT+c']\").innerHTML"
 
             @available(*, deprecated)
 			static let theseedSetting = "document.getElementsByClassName('ion-ios-cog')[0]"
