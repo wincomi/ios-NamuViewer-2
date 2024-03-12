@@ -74,13 +74,15 @@ Array.from(document.getElementsByClassName('wiki-youtube')).forEach( (element) =
  element.outerHTML = '<button type="button" class="_namuViewer-youtube-link" style="background: black;display: block;padding: 5px 5px 10px 5px;font-size: 1.1em;color: red;font-weight: bold;text-decoration: none;text-align: center;border: 0;width: 100%" onclick="webkit.messageHandlers.openYoutube.postMessage(\\'' + youtubeId + '\\');"><img src="https://img.youtube.com/vi/' + youtubeId + '/hqdefault.jpg" style="max-width:100%" /><br>▶ Youtube 앱에서 보기</a>';
 });
 """
-        
+   
+        // 본문 상단 파워링크: aside[data-v-a97ecf4a]
+        // 본문 하단 파워링크: div[data-v-7c8846da][data-v-4805fe2a]
         static let adBlock = """
 var style = document.createElement('style');
-style.innerHTML = 'div[class*="Z0lZ8CgN"], div[class*="Z0lZ8CgN"] { display: none !important; }';
+style.innerHTML = 'aside[data-v-a97ecf4a], div[data-v-7c8846da][data-v-4805fe2a] { display: none !important; }';
 document.head.appendChild(style);
 """
-        
+
         static let disableMemberMenu = """
 document.querySelector('a[title="Member menu"]').remove();
 """
